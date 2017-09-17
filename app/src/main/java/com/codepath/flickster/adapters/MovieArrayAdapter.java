@@ -1,6 +1,7 @@
 package com.codepath.flickster.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,6 +16,8 @@ import com.codepath.flickster.models.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 import static com.codepath.flickster.R.id.tvOverview;
 
@@ -63,7 +66,21 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
         viewHolder.tvTitle.setText(movie.getOriginalTitle());
         viewHolder.tvOverview.setText(movie.getOverview());
 
-        Picasso.with(getContext()).load(movie.getPosterPath()).into(viewHolder.ivImage);
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        if(orientation == Configuration.ORIENTATION_PORTRAIT){
+            Picasso.with(getContext()).load(movie.getPosterPath())
+                    .placeholder(R.drawable.default_movie_portrait)
+                    .resize(342, 0)
+                    .transform(new RoundedCornersTransformation(10, 10))
+                    .into(viewHolder.ivImage);
+        } else if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+            Picasso.with(getContext()).load(movie.getBackdrop())
+                    .placeholder(R.drawable.default_land_images)
+                    .resize(500, 0)
+                    .transform(new RoundedCornersTransformation(10, 10))
+                    .into(viewHolder.ivImage);
+        }
+
 
         return convertView;
     }
