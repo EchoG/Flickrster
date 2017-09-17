@@ -47,6 +47,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
 The landscape view took me lots of time. I did same thing as the toturial but it did not work. Then I googled it and found the rotate setting needs to be enabled in virtual devices. It helped!
 
 ## Open-source libraries used
